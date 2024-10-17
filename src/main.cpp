@@ -1,5 +1,8 @@
 #include <iostream>
 
+#include "../include/firstComeFirstServe/firstComeFirstServe.h"
+#include "../algorithms/firstComeFirstServe/firstComeFirstServe.cpp"
+
 #include "../include/roundRobin/roundRobin.h"
 #include "../algorithms/roundRobin/roundRobin.cpp"
 
@@ -9,6 +12,33 @@
 #include "../include/process.h"
 
 using namespace std;
+
+void runFirstComeFirstServeTestCases() {
+    cout << "Running First Come First Serve Scheduler Test Cases\n";
+
+    cout << "Test Case 1: \n";
+    FCFSScheduler fcfs1;
+    fcfs1.addProcess(Process(1, 0, 5));   // P1 arrives at 0, burst time = 5
+    fcfs1.addProcess(Process(2, 2, 3));   // P2 arrives at 2, burst time = 3
+    fcfs1.addProcess(Process(3, 4, 8));   // P3 arrives at 4, burst time = 8
+    fcfs1.addProcess(Process(4, 6, 2));   // P4 arrives at 6, burst time = 2
+    fcfs1.execute();
+    fcfs1.displayResults();
+    fcfs1.displayGanttChart();
+
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------"<<endl;
+
+    cout << "Test Case 2: \n";
+    FCFSScheduler fcfs2;
+    fcfs2.addProcess(Process(1, 0, 10)); // Process 1: arrival time = 0, burst time = 10
+    fcfs2.addProcess(Process(2, 2, 4));  // Process 2: arrival time = 2, burst time = 4
+    fcfs2.addProcess(Process(3, 3, 6));  // Process 3: arrival time = 3, burst time = 6
+    fcfs2.addProcess(Process(4, 5, 9));  // Process 4: arrival time = 5, burst time = 9
+    fcfs2.execute();
+    fcfs2.displayResults();
+    fcfs2.displayGanttChart();
+}
 
 void runRoundRobinTestCases() {
     cout << "Running Round Robin Scheduler Test Cases\n";
@@ -64,6 +94,11 @@ void runLongestJobFirstTestCases() {
 }
 
 int main() {
+    runFirstComeFirstServeTestCases();
+
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------"<<endl;
+
     runRoundRobinTestCases();
 
     cout<<endl;
