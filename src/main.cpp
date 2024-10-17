@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "../include/firstComeFirstServe/firstComeFirstServe.h"
 #include "../algorithms/firstComeFirstServe/firstComeFirstServe.cpp"
@@ -12,12 +13,15 @@
 #include "../include/shortestJobFirst/shortestJobFirst.h"
 #include "../algorithms/shortestJobFirst/shortestJobFirst.cpp"
 
+#include "../include/longestRemainingTimeFirst/longestRemainingTimeFirst.h"
+#include "../algorithms/longestRemainingTimeFirst/longestRemainingTimeFirst.cpp"
+
 #include "../include/process.h"
 
 using namespace std;
 
 void runFirstComeFirstServeTestCases() {
-    cout << "Running First Come First Serve Scheduler Test Cases\n";
+    cout << "Running First Come First Serve (FCFS) Scheduler Test Cases\n";
 
     cout << "Test Case 1: \n";
     FCFSScheduler fcfs1;
@@ -44,7 +48,7 @@ void runFirstComeFirstServeTestCases() {
 }
 
 void runRoundRobinTestCases() {
-    cout << "Running Round Robin Scheduler Test Cases\n";
+    cout << "Running Round Robin Scheduler (RR) Test Cases\n";
     
     cout << "Test Case 1: \n";
     RoundRobinScheduler rr1(4);        // Time quantum of 4
@@ -70,7 +74,7 @@ void runRoundRobinTestCases() {
 }
 
 void runLongestJobFirstTestCases() {
-    cout << "Running Longest Job First Scheduler Test Cases\n";
+    cout << "Running Longest Job First (LJF) Scheduler Test Cases\n";
 
     cout << "Test Case 1:\n";
     LJFScheduler ljf1;
@@ -97,7 +101,7 @@ void runLongestJobFirstTestCases() {
 }
 
 void runShortestJobFirstTestCases() {
-    cout << "Running Shortest Job First Scheduler Test Cases\n";
+    cout << "Running Shortest Job First (SJF) Scheduler Test Cases\n";
 
     cout << "Test Case 1:\n";
     SJFScheduler sjf1;
@@ -123,26 +127,41 @@ void runShortestJobFirstTestCases() {
     sjf2.displayGanttChart();
 }
 
+void runLongestRemainingTimeFirstTestCases() {
+    cout << "Running Longest Remaining Time First (LRTF) Scheduler Test Cases\n";
+
+    LRTFScheduler lrtf1;
+    lrtf1.addProcess(Process(1, 1, 2));   // P1: Arrival time = 0, Burst time = 5
+    lrtf1.addProcess(Process(2, 2, 4));   // P2: Arrival time = 1, Burst time = 8
+    lrtf1.addProcess(Process(3, 3, 6));   // P3: Arrival time = 2, Burst time = 6
+    lrtf1.addProcess(Process(4, 4, 8));   // P3: Arrival time = 2, Burst time = 6
+    lrtf1.execute();
+    lrtf1.displayResults();
+    lrtf1.displayGanttChart();
+
+    cout<<endl;
+    cout<<"----------------------------------------------------------------------------"<<endl;
+
+    LRTFScheduler lrtf2;
+    lrtf2.addProcess(Process(1, 0, 10)); // Process 1: arrival time = 0, burst time = 10
+    lrtf2.addProcess(Process(2, 2, 4));  // Process 2: arrival time = 2, burst time = 4
+    lrtf2.addProcess(Process(3, 3, 6));  // Process 3: arrival time = 3, burst time = 6
+    lrtf2.addProcess(Process(4, 5, 9));  // Process 4: arrival time = 5, burst time = 9
+    lrtf2.execute();
+    lrtf2.displayResults();
+    lrtf2.displayGanttChart();
+}
+
 int main() {
-    runFirstComeFirstServeTestCases();
+    string input;
+    cout << "Enter scheduling algorithm to run (fcfs, sjf, rr, ljf, lrtf): ";
+    cin >> input;
 
-    cout<<endl;
-    cout<<"----------------------------------------------------------------------------"<<endl;
-
-    runRoundRobinTestCases();
-
-    cout<<endl;
-    cout<<"----------------------------------------------------------------------------"<<endl;
-
-    runLongestJobFirstTestCases();
-
-    cout<<endl;
-    cout<<"----------------------------------------------------------------------------"<<endl;
-
-    runShortestJobFirstTestCases();
-
-    cout<<endl;
-    cout<<"----------------------------------------------------------------------------"<<endl;
+    if (input == "fcfs") { runFirstComeFirstServeTestCases(); } 
+    else if (input == "rr") { runRoundRobinTestCases(); } 
+    else if (input == "ljf") { runLongestJobFirstTestCases(); } 
+    else if (input == "sjf") { runShortestJobFirstTestCases(); } 
+    else if (input == "lrtf") { runLongestRemainingTimeFirstTestCases(); }
     
     return 0;
 }
